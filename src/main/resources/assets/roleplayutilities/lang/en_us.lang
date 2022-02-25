@@ -1,0 +1,9 @@
+effects.whileUse=While Using:
+effects.onUse=On Use:
+effects.onHit=On Hit:
+effects.coating=Coated with:
+effects.coating.hits.multiple=%s strikes left
+effects.coating.hits.single=1 strike left
+
+key.reference=NBT format reference
+key.category=RoleplayUtilities

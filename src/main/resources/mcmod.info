@@ -1,0 +1,16 @@
+[
+{
+  "modid": "roleplayutilities",
+  "name": "Roleplay Utilities",
+  "description": "A mod to add Operator utilities to Minecraft, primarily for the Thaumcraft Roleplay Server, but welcome for others to use.",
+  "version": "1.1.0.2",
+  "mcversion": "1.12.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Sheenus"],
+  "credits": "DidYouIronTheCat, for the idea, and for running the TCRP Server.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
