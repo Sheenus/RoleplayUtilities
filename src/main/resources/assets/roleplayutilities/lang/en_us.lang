@@ -1,9 +1,49 @@
-effects.whileUse=While Using:
-effects.onUse=On Use:
-effects.onHit=On Hit:
+effects.whileuse=While Using:
+effects.onuse=On Use:
+effects.onhit=On Hit:
 effects.coating=Coated with:
 effects.coating.hits.multiple=%s strikes left
 effects.coating.hits.single=1 strike left
 
 key.reference=NBT format reference
-key.category=RoleplayUtilities
+key.category=Roleplay Utilities
+
+warnings.setredstoneactivate.notenoughargs=This item does not have enough sub-tag arguments in its SetRedstoneActivate tag to correctly execute. Please contact a server op to fix this.
+warnings.setredstoneactivate.coordtagswrongtype=This item has the incorrect type of coordinate tags on its SetRedstoneActivate tag, and will not properly execute. Please contact a server op to fix this.
+
+reference.close=Close
+
+reference.home.title=Roleplay Utilities NBT tag reference
+reference.home.notooltip=No Tooltip
+reference.home.message=Message
+reference.home.potioneffects=Potion Effects
+reference.home.whileuseeffects=While-in-use Effects
+reference.home.weaponeffects=Weapon Effects
+reference.home.setredstoneactivate=Set Redstone On-activate
+
+reference.submenu.copybutton.tooltip=Click to copy template to clipboard.
+reference.submenu.copybutton.toast=Copied!
+
+reference.notooltip.title=No Tooltip NBT Tag
+reference.notooltip.template=NoTooltip:true
+reference.notooltip.description=The NoToolip tag is used alongside PotionEffects, WhileUseEffects, and WeaponEffects tags to hide the tooltip information that would otherwise be given to inform the player about the added item effects.<BR><BR>Can be left out or set to false to allow magic effects to be displayed via tooltips.
+
+reference.message.title=Message NBT Tag
+reference.message.template=Message:{text:"your text here",color:"gray",regular:false,bold:false,underlined:false,strikethrough:false,obfuscated:false}
+reference.message.description=The Message tag is used to display a message to chat, in particular to the player using the item to which the NBT tag is attached.<BR><BR>The text tag is the string to display as the chat message, while the formatting tags change the respective formatting of the message:<BR>- color: the color of the text. Uses the TextFormatting enum of the specific color; see the Formatting Codes page of the Minecraft Wiki for specific values<BR>- regular: sets formatting to regular text (i.e. disables the default italic formatting)<BR>- bold: sets bold formatting<BR>- underlined: sets underlined formatting<BR>- strikethrough: sets strikethrough formatting<BR>- obfuscated: sets minecraft's scrolling obfuscating font as the format.<BR><BR>The color and formatting tags are optional; formatting will default to italics and gray, if no formatting tags are used. 
+
+reference.potioneffects.title=PotionEffects NBT Tag
+reference.potioneffects.template=PotionEffects:[{id:<int>|"effect",time:<int>,lvl:<magnitude-1>},{id:<int>|"effect",time:<int>,lvl:<magnitude-1>}]
+reference.potioneffects.description=The PotionEffects tag is used to add custom potion effects to items, which take effect upon activation. For items with no activation time these will take effect instantly, while for items with a use time will activate at the completion of use.<BR><BR>Multiple effects can be added, as seen in the template. The format of the individual effects is the same to the /effect command:<BR>- id: can be the resourcelocation for the mobeffect as a string, or its numerical id as an integer<BR>- time: integer length of the effect in seconds, when the effect has a duration<BR>- lvl: discrete level of the effect, when the effect has a magnitude. Like the /effect command, lvl is specified as magnitude-1, e.g. a magnitude 1 effect would be tagged as lvl:0<BR><BR>Both time and lvl tags are optional; when omitted, the potion effect has 0 duration and magnitude 1.
+
+reference.whileuseeffects.title=WhileUseEffects NBT Tag
+reference.whileuseeffects.template=WhileUseEffects:[{id:<int>|"effect",time:<int>,lvl:<magnitude-1>},{id:<int>|"effect",time:<int>,lvl:<magnitude-1>}]
+reference.whileuseeffects.description=The WhileUseEffects tag is used to add custom potion effects to items, similarly to PotionEffects, but to be used while the item is in use, e.g. while a shield is being blocked with, or a bow is being drawn.<BR><BR>Its tag format is the same as PotionEffects:<BR>- id: can be the resourcelocation for the mobeffect as a string, or its numerical id as an integer<BR>- time: integer length of the effect in seconds, when the effect has a duration<BR>- lvl: discrete level of the effect, when the effect has a magnitude. Like the /effect command, lvl is specified as magnitude-1, e.g. a magnitude 1 effect would be tagged as lvl:0<BR><BR>Both time and lvl tags are optional; when omitted, the potion effect has 0 duration and magnitude 1.
+
+reference.weaponeffects.title=WeaponEffects NBT Tag
+reference.weaponeffects.template=WeaponEffects:[{id:<int>|"effect",time:<int>,lvl:<magnitude-1>},{id:<int>|"effect",time:<int>,lvl:<magnitude-1>}]
+reference.weaponeffects.description=The WeaponEffects tag is used with any tool item, including most weapons, to apply custom potion effects to a target when struck with said tool.<BR><BR>Its tag format is the same as PotionEffects:<BR>- id: can be the resourcelocation for the mobeffect as a string, or its numerical id as an integer<BR>- time: integer length of the effect in seconds, when the effect has a duration<BR>- lvl: discrete level of the effect, when the effect has a magnitude. Like the /effect command, lvl is specified as magnitude-1, e.g. a magnitude 1 effect would be tagged as lvl:0<BR><BR>Both time and lvl tags are optional; when omitted, the potion effect has 0 duration and magnitude 1.
+
+reference.setredstoneactivate.title=SetRedstoneActivate NBT Tag
+reference.setredstoneactivate.template=SetRedstoneActivate{x:<int>,y:<int>,z:<int>}
+reference.setredstoneactivate.description=The SetRedstoneActivate tag sets a redstone wire block at the location specified by the sub-tags.<BR><BR>- x: the x-coordinate for the block to be set at<BR>- y: the y-coordinate for the block to be set at<BR>- z: the z-coordinate for the block to be set at<BR><BR>The coordinate tags MUST be integers, and all three must be included; if set as non-integer tags or without all three coordinate tags, A warning will be sent to the player using the item, the item will not take effect, and the player should contact an op for assistance. 

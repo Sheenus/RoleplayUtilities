@@ -7,6 +7,7 @@ import com.sheenus.roleplayutilities.util.Reference;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.NumberInvalidException;
 import net.minecraft.entity.player.EntityPlayer;
@@ -70,9 +71,17 @@ public class SetRedstoneHandler {
 		boolean result = true;
 		
 		if (setBlockNBT.getSize() < 3) {
-			TextComponentString notEnoughValuesMessage = new TextComponentString("This item does not have enough arguments to execute. Please contact a server op to fix this.");
+			TextComponentString notEnoughValuesMessage = new TextComponentString(I18n.format("warnings.setredstoneactivate.notenoughargs"));
 			notEnoughValuesMessage.getStyle().setColor(TextFormatting.RED);
 			if (player.world.isRemote) { player.sendMessage(notEnoughValuesMessage); }
+			result = false;
+			return result;
+		}
+		
+		if (!(setBlockNBT.hasKey("x", 3) && setBlockNBT.hasKey("y", 3) && setBlockNBT.hasKey("z", 3))) {
+			TextComponentString coordTagsWrongTypeMessage = new TextComponentString(I18n.format("warnings.setredstoneactivate.coordtagswrongtype"));
+			coordTagsWrongTypeMessage.getStyle().setColor(TextFormatting.RED);
+			if (player.world.isRemote) { player.sendMessage(coordTagsWrongTypeMessage); }
 			result = false;
 			return result;
 		}
@@ -86,7 +95,7 @@ public class SetRedstoneHandler {
 		
 		// if (player.world.isRemote) { RoleplayUtilities.utilitiesLog.info("no of tag entries: " + noOfArgs); }
 		
-		if (setBlockNBT.hasKey("x") && setBlockNBT.hasKey("y") && setBlockNBT.hasKey("z")) {
+		if (setBlockNBT.hasKey("x", 3) && setBlockNBT.hasKey("y", 3) && setBlockNBT.hasKey("z", 3)) {
 			output[0] = Integer.toString(setBlockNBT.getInteger("x"));
 			output[1] = Integer.toString(setBlockNBT.getInteger("y"));
 			output[2] = Integer.toString(setBlockNBT.getInteger("z"));

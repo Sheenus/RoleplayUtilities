@@ -76,7 +76,7 @@ public class PotionEffectsEventHandler {
 	 * Will refresh every tick the item is being used (i.e. when activate is held, before the use is finished), so long effect times are often unnecessary.
 	 * 
 	 * NBT structure for added PotionEffects should be as follows:
-	 * {...,ActivateEffects:[{id:x,time:y,lvl:z},{id:a,time:b,lvl:c}],etc.],...} where:
+	 * {...,WhileUseEffects:[{id:x,time:y,lvl:z},{id:a,time:b,lvl:c}],etc.],...} where:
 	 * id: the MobEffect ID, as in the registry. Can be either the numeric ID or the ResourceLocation string. Will not fire if it doesn't read a proper effect.
 	 * time: the time in seconds the PotionEffect should take effect for. Will default to 0, and always be instant for instant effects.
 	 * lvl: the magnitude of the potion effect. works like /effect, where 0 is level I, 1 is level II, etc.
@@ -85,7 +85,7 @@ public class PotionEffectsEventHandler {
 	 */
 	
 	@SubscribeEvent
-	public static void playerOnTickUseAddEffect(LivingEntityUseItemEvent.Tick event) {
+	public static void playerWhileUseAddEffect(LivingEntityUseItemEvent.Tick event) {
 		
 		// sanity checks first, to make sure the entity using the item is a player, the item even has NBT tags to read, and has the correct tag list to begin with...
 		if (event.getEntity() instanceof EntityPlayer && event.getItem().hasTagCompound() && event.getItem().getTagCompound().hasKey("WhileUseEffects") && event.getItem().getMaxItemUseDuration() > 0) {
@@ -149,12 +149,12 @@ public class PotionEffectsEventHandler {
 	 * Event handler for magic weapons; detects whether the item the attacked entity was hit with had the relevant on-hit PotionEffect NBT tag.
 	 * If so, enacts the specified effect on the attacked entity.
 	 * NBT structure for magic weapons should be as follows:
-	 * {...WeaponEffect:[{id:x,time:y,lvl:z,},{id:a,time:b,lvl:c}],...}, where the formatting is exactly as for {@link PotionEffectsEventHandler#playerOnUseAddEffect}
+	 * {...WeaponEffects:[{id:x,time:y,lvl:z,},{id:a,time:b,lvl:c}],...}, where the formatting is exactly as for {@link PotionEffectsEventHandler#playerOnUseAddEffect}
 	 * 
 	 * @param event the LivingAttackEvent where an EntityLiving is attacked, potentially by a magic weapon.
 	 */
 	@SubscribeEvent
-	public static void entityOnHitMagicWeaponEffect(LivingAttackEvent event) {
+	public static void entityOnHitMagicWeaponEffects(LivingAttackEvent event) {
 		
 		EntityLivingBase targetEntity = event.getEntityLiving();
 		DamageSource damageSource = event.getSource();
@@ -164,9 +164,9 @@ public class PotionEffectsEventHandler {
 			EntityLivingBase sourceEntity = (EntityLivingBase)(damageSource).getTrueSource();
 			ItemStack sourceItem = sourceEntity.getHeldItemMainhand();
 			
-			if (sourceItem.hasTagCompound() && sourceItem.getTagCompound().hasKey("WeaponEffect")) {
+			if (sourceItem.hasTagCompound() && sourceItem.getTagCompound().hasKey("WeaponEffects")) {
 				
-				NBTTagList potionEffectsNBT = getPotionEffectsTagList(sourceItem, "WeaponEffect");
+				NBTTagList potionEffectsNBT = getPotionEffectsTagList(sourceItem, "WeaponEffects");
 				
 				for (int i = 0; i < potionEffectsNBT.tagCount(); i++) {
 					
@@ -191,7 +191,7 @@ public class PotionEffectsEventHandler {
 	 * @param event the LivingAttackEvent where an EntityLiving is attacked, potentially by a magic weapon.
 	 */
 	@SubscribeEvent
-	public static void entityOnHitCoatingWeaponEffect(LivingAttackEvent event) {
+	public static void entityOnHitCoatingEffect(LivingAttackEvent event) {
 	
 		EntityLivingBase targetEntity = event.getEntityLiving();
 		DamageSource damageSource = event.getSource();
@@ -250,7 +250,7 @@ public class PotionEffectsEventHandler {
 					
 					if (potionEffectsNBT != null) {
 						
-						tooltip.add(TextFormatting.DARK_PURPLE + I18n.translateToLocal("effects.whileUse"));
+						tooltip.add(TextFormatting.DARK_PURPLE + I18n.translateToLocal("effects.whileuse"));
 						List<PotionEffect> effectList = Lists.<PotionEffect>newArrayList();
 						List<Tuple<String, AttributeModifier>> attributeModList = Lists.<Tuple<String, AttributeModifier>>newArrayList();
 					
@@ -280,7 +280,7 @@ public class PotionEffectsEventHandler {
 					
 					if (potionEffectsNBT != null) {
 						
-						tooltip.add(TextFormatting.DARK_PURPLE + I18n.translateToLocal("effects.onUse"));
+						tooltip.add(TextFormatting.DARK_PURPLE + I18n.translateToLocal("effects.onuse"));
 						List<PotionEffect> effectList = Lists.<PotionEffect>newArrayList();
 						List<Tuple<String, AttributeModifier>> attributeModList = Lists.<Tuple<String, AttributeModifier>>newArrayList();
 					
@@ -304,13 +304,13 @@ public class PotionEffectsEventHandler {
 					}
 				}
 				
-				if (itemStackTagCompound.hasKey("WeaponEffect")) {
+				if (itemStackTagCompound.hasKey("WeaponEffects")) {
 					
-					NBTTagList potionEffectsNBT = getPotionEffectsTagList(itemStack, "WeaponEffect"); 
+					NBTTagList potionEffectsNBT = getPotionEffectsTagList(itemStack, "WeaponEffects"); 
 					
 					if (potionEffectsNBT != null) {
 						
-						tooltip.add(TextFormatting.DARK_PURPLE + I18n.translateToLocal("effects.onHit"));
+						tooltip.add(TextFormatting.DARK_PURPLE + I18n.translateToLocal("effects.onhit"));
 						List<PotionEffect> effectList = Lists.<PotionEffect>newArrayList();
 						List<Tuple<String, AttributeModifier>> attributeModList = Lists.<Tuple<String, AttributeModifier>>newArrayList();
 					

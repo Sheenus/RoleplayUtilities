@@ -3,7 +3,10 @@ package com.sheenus.roleplayutilities.util;
 import java.util.List;
 
 import com.sheenus.roleplayutilities.RoleplayUtilities;
+import com.sheenus.roleplayutilities.gui.GuiFullReferenceList;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemLingeringPotion;
@@ -79,5 +82,15 @@ public class UtilitiesUtils {
 			
 		}
 		return potionEffectsNBTList;
+	}
+	
+	public static String fitStringToButton(Minecraft mc, String stringToFit, GuiButton button) {
+		String result;
+		int elipseLength = mc.fontRenderer.getStringWidth("...");
+		if (mc.fontRenderer.getStringWidth(stringToFit) > (button.width - 10)) {
+        	result = mc.fontRenderer.trimStringToWidth(stringToFit, (button.width - (elipseLength + 10))) + "...";
+		}
+        else { result = stringToFit; }
+		return result;
 	}
 }
